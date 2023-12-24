@@ -1,0 +1,48 @@
+- hosts: all
+  tasks:
+  - name: install the latest version of Apache
+    yum:
+      name: apache2
+      state: latest
+
+  - name: enable service apache and ensure it is not masked
+    systemd:
+      name: apache2
+      enabled: yes
+
+  - name: Disable AppArmor 
+    command: systemctl disable apparmor
+    ignore_errors: yes
+    changed_when: false
+  
+  - name: Install packages on Ubuntu
+    apt:
+      name: "{{ packages }}"
+    vars:
+       packages:
+         - apache2
+         - unzip
+
+  - name: Start and Enable Apache on Ubuntu
+    service:
+        name: apache2
+        state: started
+        enabled: yes
+
+  - name: Download a Template on Ubuntu
+    get_url:
+      url: https://www.free-css.com/assets/files/free-css-templates/download/page264/the-card.zip
+      dest: /tmp/the-card.zip
+
+  - name: Extract Template on Ubuntu
+    unarchive:
+        src: /tmp/the-card.zip
+        dest: /tmp/
+        remote_src: yes
+
+  - name: Move Template to /var/www/html on Ubuntu
+    command: mv /tmp/2109_the_card/* /var/www/html/
+    args:
+        creates: /var/www/html/index.html
+
+
