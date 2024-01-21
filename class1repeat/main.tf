@@ -10,8 +10,17 @@ resource "aws_iam_user" "devops-diana" {
     tags = {
     class = "terraform"
   }
- }
+ } 
 
 resource "aws_iam_group" "dianasteam" {
   name = "dianasteam"
   }
+
+resource "aws_iam_group_membership" "dianasteam_team" {
+  name = "dianasteam-group-membership"
+  users = [
+   aws_iam_user.devops-diana2.name
+  ]
+
+group = aws_iam_group.dianasteam.name
+}
