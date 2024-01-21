@@ -5,11 +5,12 @@ resource "aws_iam_user" "devops-diana" {
   }
   }
 
-resource "aws_iam_user" "devops-diana2" {
+ resource "aws_iam_user" "devops-diana2" {
   name = "devops-diana2"
     tags = {
     class = "terraform"
   }
+ }
 
 resource "aws_iam_group" "dianasteam" {
   name = "dianasteam"
