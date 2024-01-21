@@ -46,10 +46,63 @@ module "asg" {
   ebs_optimized     = true
   enable_monitoring = true
 
+}
 
+# Create sec group
+resource "aws_security_group" "class2-ec2" {
+  name        = "class2-ec2"
+  description = "Allow TLS inbound traffic and all outbound traffic"
+}
 
-  
-  
+# Add ingress rule to sec group
+resource "aws_vpc_security_group_ingress_rule" "allow_tls_22" {
+  security_group_id = aws_security_group.class2-ec2.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
 
+# Add ingress rule to sec group
+resource "aws_vpc_security_group_ingress_rule" "allow_tls_80" {
+  security_group_id = aws_security_group.class2-ec2.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
 
+# Add egress rule to sec group
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  security_group_id = aws_security_group.class2-ec2.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
+
+# Creates LB
+resource "aws_elb" "bar" {
+  name = "foobar-terraform-elbs"
+  availability_zones = [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+  ]
+  security_groups = [aws_security_group.class2-ec2.id]
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "TCP:80"
+    interval            = 30
+  }
+  cross_zone_load_balancing   = true
+  idle_timeout                = 300
+  connection_draining         = true
+  connection_draining_timeout = 300
 }
