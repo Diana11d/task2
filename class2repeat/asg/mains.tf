@@ -30,6 +30,7 @@ module "asg" {
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
   security_groups =  [aws_security_group.class2-ec2.id]
+  user_data =  filebase64("${path.module}/wordpress.sh")
   availability_zones       = [
   "us-east-1a", 
   "us-east-1b",
