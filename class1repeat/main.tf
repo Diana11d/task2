@@ -30,7 +30,7 @@ resource "aws_iam_user" "multiuser" {
   for_each = toset ([
     "bob"
     "sam"
-    "nina"
+    "nina",
   ])
  }
   
