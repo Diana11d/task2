@@ -106,3 +106,9 @@ resource "aws_elb" "bar" {
   connection_draining         = true
   connection_draining_timeout = 300
 }
+
+# Attachs ASG to LB
+resource "aws_autoscaling_attachment" "asg_attachment_bar" {
+  autoscaling_group_name = module.asg.autoscaling_group_id
+  elb                    = aws_elb.bar.id
+}
