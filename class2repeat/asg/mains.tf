@@ -29,6 +29,7 @@ module "asg" {
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
+  security_groups =  [aws_security_group.class2-ec2.id]
   availability_zones       = [
   "us-east-1a", 
   "us-east-1b",
