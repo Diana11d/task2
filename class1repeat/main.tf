@@ -11,6 +11,6 @@ resource "aws_iam_user" "devops-diana2" {
     class = "terraform"
   }
 
-  resource "aws_iam_group" "developers" {
+  resource "aws_iam_group" "developers"  {
   name = "developers"
-}
+  }
