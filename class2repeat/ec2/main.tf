@@ -40,3 +40,6 @@ resource "aws_instance" "web" {
   associate_public_ip_address = false
   availability_zone = "us-east-1b"
 }
+
+
+ 
