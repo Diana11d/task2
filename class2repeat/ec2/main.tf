@@ -39,6 +39,9 @@ resource "aws_instance" "web" {
   instance_type = "t3.micro"
   associate_public_ip_address = false
   availability_zone = "us-east-1b"
+    vpc_security_group_ids = [
+    aws_security_group.class2-ec2.id
+  ]
 }
 
 
