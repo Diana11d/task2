@@ -28,8 +28,8 @@ group = aws_iam_group.dianasteam.name
 resource "aws_iam_user" "multiuser" {
   name = each.key 
   for_each = toset ([
-    "bob"
-    "sam"
+    "bob",
+    "sam",
     "nina",
   ])
  }
