@@ -28,7 +28,7 @@ resource "aws_vpc_security_group_ingress_rule" "class2-ec2_ipv6" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.class-ec2.id
+  security_group_id = aws_security_group.class2-ec2.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" 
 }
