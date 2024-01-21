@@ -10,4 +10,7 @@ resource "aws_iam_user" "devops-diana2" {
     tags = {
     class = "terraform"
   }
-  }
+
+  resource "aws_iam_group" "developers" {
+  name = "developers"
+}
