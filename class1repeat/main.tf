@@ -24,3 +24,13 @@ resource "aws_iam_group_membership" "dianasteam_team" {
 
 group = aws_iam_group.dianasteam.name
 }
+
+resource "aws_iam_user" "multiuser" {
+  name = each.key 
+  for_each = toset ([
+    "bob"
+    "sam"
+    "nina"
+  ])
+ }
+  
