@@ -34,3 +34,4 @@ resource "azurerm_mysql_server" "example" {
   ssl_enforcement_enabled           = true
   ssl_minimal_tls_version_enforced  = "TLS1_2"
 }
+
