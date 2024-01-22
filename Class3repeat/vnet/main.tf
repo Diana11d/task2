@@ -28,6 +28,7 @@ resource "azurerm_subnet" "subnet2" {
 }
 
 
+
 resource "azurerm_subnet" "subnet3" {
   name                 = "subnet3"
   resource_group_name  = azurerm_resource_group.example.name
